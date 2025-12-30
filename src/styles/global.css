@@ -1,0 +1,92 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-primary: #020E11;
+  --color-secondary: #FFFDFF;
+  --color-secondary-light: #03DE82;
+  --color-primary-blue: #026148;
+
+  /* Colors of buttons */
+  --color-button-primary: #03DE82;
+  --color-button-secondary: #026148;
+  --color-button-dark: #020E11;
+  --color-button-accent: #026148;
+  --color-button-white: #FFFDFF;
+
+  /* Colors for main gradient */
+  --color-gradient-start: #020E11;
+  --color-gradient-middle: #026148;
+  --color-gradient-end: #03DE82;
+
+  /* Colors for secondary gradient */
+  --color-gradient-start-secondary: #026148;
+  --color-gradient-middle-secondary: #03DE82;
+  --color-gradient-end-secondary: #FFFDFF;
+
+  --font-family: alexandria;
+
+  --animate-marquee: marquee 24s linear infinite;
+  --animate-marquee2: marquee2 24s linear infinite;
+}
+
+/* Glassmorphism Effect */
+.glass {
+  background: rgba(2, 97, 72, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(42, 214, 174, 0.119);
+  /* very subtle light border */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.glass-strong {
+  background: rgba(2, 97, 72, 0.25);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(3, 222, 130, 0.1);
+  /* accent hint */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* 
+  @keyframes marquee { ... }
+  @keyframes marquee2 { ... } 
+*/
+
+@theme inline {
+
+  --animate-marquee: marquee var(--duration) infinite linear;
+  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+
+  @keyframes marquee-vertical {
+    from {
+      transform: translateY(0);
+    }
+
+    to {
+      transform: translateY(calc(-100% - var(--gap)));
+    }
+  }
+}
+
+/* Tiptap Placeholder Styles */
+.tiptap p.is-editor-empty:first-child::before {
+  color: #9ca3af;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}

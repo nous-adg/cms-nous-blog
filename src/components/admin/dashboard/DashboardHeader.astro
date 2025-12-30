@@ -1,0 +1,16 @@
+---
+import Button from "@/components/ui/buttons/Button.astro";
+---
+
+<header class="container mx-auto max-w-12xl">
+    <div class="flex items-center justify-between py-4 px-12">
+        <h3 class="text-xl font-bold text-[#515B54]">Publicaciones del Blog</h3>
+
+        <Button
+            href="/admin/crear-publicacion"
+            text="Agregar publicación"
+            variant="primaryrounded"
+            icon={true}
+        />
+    </div>
+</header>

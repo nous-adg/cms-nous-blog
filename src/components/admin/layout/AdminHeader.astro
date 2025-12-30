@@ -1,0 +1,23 @@
+---
+import { UserButton } from "@clerk/astro/components";
+
+const user = await Astro.locals.currentUser();
+const userName =
+    user?.fullName || user?.firstName || user?.username || "Usuario";
+---
+
+<header>
+    <div class="flex justify-between bg-primary container mx-auto pt-4">
+        <div>
+            <h3
+                class="font-bold text-xl text-(--color-secondary) relative z-50"
+            >
+                Bienvenido {userName}
+            </h3>
+        </div>
+
+        <div>
+            <UserButton />
+        </div>
+    </div>
+</header>

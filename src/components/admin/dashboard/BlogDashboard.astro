@@ -1,0 +1,11 @@
+---
+import DashboardHeader from "./DashboardHeader.astro";
+import { PostsDashboard } from "./react";
+---
+
+<section class="container mx-auto max-w-12xl mt-10">
+    <div class="glass rounded-xl border border-green-400">
+        <DashboardHeader />
+        <PostsDashboard client:load />
+    </div>
+</section>
