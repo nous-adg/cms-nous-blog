@@ -7,7 +7,7 @@ import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { g as getCategoryLabel } from "../chunks/categoryLabels_C9bKjRa1.mjs";
 import { renderers } from "../renderers.mjs";
 const $$StatusCards = createComponent(async ($$result, $$props, $$slots) => {
-  const API_URL = "http://localhost:3000/api/v1";
+  const API_URL = "https://blog-api-jo8t.onrender.com/api/v1";
   async function fetchPostStats() {
     try {
       const publishedResponse = await fetch(
@@ -451,7 +451,7 @@ const PostItem = React.memo(({ post }) => {
                 alert("No se pudo obtener el token de autenticación");
                 return;
               }
-              const API_URL = "http://localhost:3000/api/v1";
+              const API_URL = "https://blog-api-jo8t.onrender.com/api/v1";
               const response = await fetch(`${API_URL}/posts/${post.id}`, {
                 method: "DELETE",
                 headers: {

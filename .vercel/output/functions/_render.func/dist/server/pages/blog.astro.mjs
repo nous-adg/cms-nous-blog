@@ -1,5 +1,5 @@
 import { e as createComponent, f as createAstro, m as maybeRenderHead, h as addAttribute, r as renderTemplate, k as renderComponent, p as Fragment } from "../chunks/astro/server_B9nb4zjO.mjs";
-import { B as BlogCard, c as fetchPublishedPosts, d as fetchCategories, $ as $$Layout } from "../chunks/BlogCard_HNdrRCgQ.mjs";
+import { B as BlogCard, c as fetchPublishedPosts, d as fetchCategories, $ as $$Layout } from "../chunks/BlogCard_BDsBoDaQ.mjs";
 import { jsx, jsxs } from "react/jsx-runtime";
 import "react";
 import "clsx";

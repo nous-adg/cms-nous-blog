@@ -1,5 +1,5 @@
 import { e as createComponent, f as createAstro, m as maybeRenderHead, h as addAttribute, k as renderComponent, r as renderTemplate, u as unescapeHTML } from "../../chunks/astro/server_B9nb4zjO.mjs";
-import { A as AuthorBadge, B as BlogCard, f as fetchPostBySlug, a as fetchRelatedPosts, b as fetchNextPost, $ as $$Layout } from "../../chunks/BlogCard_HNdrRCgQ.mjs";
+import { A as AuthorBadge, B as BlogCard, f as fetchPostBySlug, a as fetchRelatedPosts, b as fetchNextPost, $ as $$Layout } from "../../chunks/BlogCard_BDsBoDaQ.mjs";
 import { jsx, jsxs } from "react/jsx-runtime";
 import React, { useMemo } from "react";
 import { g as getCategoryLabel } from "../../chunks/categoryLabels_C9bKjRa1.mjs";

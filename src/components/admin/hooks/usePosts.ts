@@ -32,7 +32,7 @@ export function usePosts(filters: Filters): UsePostsReturn {
       if (filters.date) params.set('date', filters.date);
       if (filters.status) params.set('status', filters.status);
 
-      const response = await fetch(`http://localhost:3000/api/v1/posts?${params.toString()}`);
+      const response = await fetch(`https://blog-api-jo8t.onrender.com/api/v1/posts?${params.toString()}`);
 
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);

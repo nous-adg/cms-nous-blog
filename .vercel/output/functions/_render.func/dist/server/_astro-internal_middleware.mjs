@@ -1,8 +1,8 @@
 import { webcrypto } from "node:crypto";
-import "./chunks/astro-designed-error-pages_DAK7QxKN.mjs";
+import "./chunks/astro-designed-error-pages_YiHfD-Tp.mjs";
 import "./chunks/astro/server_B9nb4zjO.mjs";
 import "clsx";
-import { s as sequence } from "./chunks/index_CDQ0neHr.mjs";
+import { s as sequence } from "./chunks/index_DZwqBPm9.mjs";
 const isTestEnvironment = () => {
   try {
     return process.env.NODE_ENV === "test";
@@ -7202,7 +7202,7 @@ const createPathMatcher = (patterns) => {
   const matchers = precomputePathRegex([patterns || ""].flat().filter(Boolean));
   return (pathname) => matchers.some((matcher) => matcher.test(pathname));
 };
-const __vite_import_meta_env__ = { "ASSETS_PREFIX": void 0, "BASE_URL": "/", "DEV": false, "MODE": "production", "PROD": true, "PUBLIC_API_URL": "http://localhost:3000/api/v1", "PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_test_c3RlYWR5LWNoZWV0YWgtODEuY2xlcmsuYWNjb3VudHMuZGV2JA", "PUBLIC_CLOUDINARY_CLOUD_NAME": "drwd1wtvt", "PUBLIC_CLOUDINARY_UPLOAD_PRESET": "Blog_uploads", "SITE": void 0, "SSR": true };
+const __vite_import_meta_env__ = { "ASSETS_PREFIX": void 0, "BASE_URL": "/", "DEV": false, "MODE": "production", "PROD": true, "PUBLIC_API_URL": "https://blog-api-jo8t.onrender.com/api/v1", "PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_test_c3RlYWR5LWNoZWV0YWgtODEuY2xlcmsuYWNjb3VudHMuZGV2JA", "PUBLIC_CLOUDINARY_CLOUD_NAME": "drwd1wtvt", "PUBLIC_CLOUDINARY_UPLOAD_PRESET": "Blog_uploads", "SITE": void 0, "SSR": true };
 function getContextEnvVar(envVarName, contextOrLocals) {
   const locals = "locals" in contextOrLocals ? contextOrLocals.locals : contextOrLocals;
   if (locals?.runtime?.env) {

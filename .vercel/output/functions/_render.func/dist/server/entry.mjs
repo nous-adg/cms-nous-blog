@@ -1,6 +1,6 @@
 import { renderers } from "./renderers.mjs";
-import { c as createExports, s as serverEntrypointModule } from "./chunks/_@astrojs-ssr-adapter_Hw2gbVkY.mjs";
-import { manifest } from "./manifest_BFmiOHa_.mjs";
+import { c as createExports, s as serverEntrypointModule } from "./chunks/_@astrojs-ssr-adapter_My5frMsQ.mjs";
+import { manifest } from "./manifest_Cq8m5JlS.mjs";
 const serverIslandMap = /* @__PURE__ */ new Map();
 ;
 const _page0 = () => import("./pages/_image.astro.mjs");
@@ -25,7 +25,7 @@ const _manifest = Object.assign(manifest, {
   middleware: () => import("./_astro-internal_middleware.mjs")
 });
 const _args = {
-  "middlewareSecret": "a59dfcbe-a774-43b1-929d-0b7135ac7ad0",
+  "middlewareSecret": "3e306ce2-1794-43cb-a56a-bb1978318b21",
   "skewProtection": false
 };
 const _exports = createExports(_manifest, _args);

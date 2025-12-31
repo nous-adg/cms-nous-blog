@@ -123,7 +123,7 @@ const $$Layout = createComponent(($$result, $$props, $$slots) => {
   Astro2.self = $$Layout;
   return renderTemplate`<html lang="en" data-astro-cid-sckkx6r4> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator"${addAttribute(Astro2.generator, "content")}><title>Blog CMS</title>${renderComponent($$result, "ClientRouter", $$ClientRouter, { "data-astro-cid-sckkx6r4": true })}${renderHead()}</head> <body data-astro-cid-sckkx6r4> ${renderComponent($$result, "Header", $$Header, { "data-astro-cid-sckkx6r4": true })} ${renderSlot($$result, $$slots["default"])} ${renderComponent($$result, "Footer", $$Footer, { "data-astro-cid-sckkx6r4": true })} </body></html>`;
 }, "/Users/alessandro_diaz/Documents/Development/Personal/blog-standalone/src/layouts/Layout.astro", void 0);
-const API_URL = "http://localhost:3000/api/v1";
+const API_URL = "https://blog-api-jo8t.onrender.com/api/v1";
 async function fetchPublishedPosts(limit = 10, offset = 0, search, category, order) {
   try {
     const params = new URLSearchParams({

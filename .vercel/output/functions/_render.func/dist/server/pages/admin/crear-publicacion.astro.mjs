@@ -873,7 +873,7 @@ const formatPostForBackend = (postData) => {
   }
   return formatted;
 };
-const API_URL = "http://localhost:3000/api/v1";
+const API_URL = "https://blog-api-jo8t.onrender.com/api/v1";
 function usePostActions() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
