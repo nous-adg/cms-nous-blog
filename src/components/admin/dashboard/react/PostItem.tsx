@@ -80,7 +80,7 @@ export const PostItem = React.memo(({ post }: PostItemProps) => {
                 return;
               }
 
-              const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:3000/api/v1';
+              const API_URL = import.meta.env.PUBLIC_API_URL;
               const response = await fetch(`${API_URL}/posts/${post.id}`, {
                 method: 'DELETE',
                 headers: {

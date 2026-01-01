@@ -428,7 +428,7 @@ Edit `.env` and fill in your credentials (see [Configuration](#-configuration) s
 pnpm dev
 ```
 
-The application will be available at `http://localhost:4321`
+The application will be available in your browser
 
 ---
 
@@ -441,7 +441,7 @@ Create a `.env` file in the root directory with the following variables:
 ```bash
 # Backend API Configuration
 # URL of your backend API that handles posts, categories, etc.
-PUBLIC_API_URL=http://localhost:3000/api/v1
+PUBLIC_API_URL=https://your-backend-api.com/api/v1
 
 # Clerk Authentication
 # Get these from https://dashboard.clerk.com
@@ -467,8 +467,7 @@ PUBLIC_CLOUDINARY_UPLOAD_PRESET=your_upload_preset
 
 3. **Configure Allowed Redirects**
    - Go to "Paths" in Clerk dashboard
-   - Add your development URL: `http://localhost:4321`
-   - Add your production URL after deployment
+   - Add your development and production URLs
 
 4. **Organization Setup (Optional)**
    - Enable organizations in Clerk dashboard
@@ -554,7 +553,7 @@ GET    /api/v1/categories         # List all categories
 
 ### **Accessing the Admin Panel**
 
-1. Navigate to `http://localhost:4321`
+1. Navigate to your application URL
 2. Sign in with Clerk (create an account if needed)
 3. You'll be redirected to `/admin` dashboard
 

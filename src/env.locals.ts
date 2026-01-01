@@ -2,5 +2,7 @@
 /// <reference types="@clerk/astro/env" />
 
 declare namespace App {
-  interface Locals extends Record<string, any> {}
+  interface Locals extends Record<string, any> {
+    
+  }
 }
