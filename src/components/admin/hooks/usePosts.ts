@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { Post, Filters } from '../types/post';
 
+const API_URL = import.meta.env.PUBLIC_API_URL || 'https://blog-api-jo8t.onrender.com/api/v1';
+
 interface UsePostsReturn {
   posts: Post[];
   loading: boolean;
@@ -32,7 +34,7 @@ export function usePosts(filters: Filters): UsePostsReturn {
       if (filters.date) params.set('date', filters.date);
       if (filters.status) params.set('status', filters.status);
 
-      const response = await fetch(`https://blog-api-jo8t.onrender.com/api/v1/posts?${params.toString()}`);
+      const response = await fetch(`${API_URL}/posts?${params.toString()}`);
 
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
