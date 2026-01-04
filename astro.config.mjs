@@ -13,9 +13,6 @@ export default defineConfig({
     },
 
     integrations: [react(), clerk({
-        domain: "admin.nous.cr",
-        isSatellite: true,
-        signInUrl: "https://admin.nous.cr",
     })],
     adapter: vercel()
 });
