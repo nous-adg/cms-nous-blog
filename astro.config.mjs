@@ -12,10 +12,6 @@ export default defineConfig({
         plugins: [tailwindcss()]
     },
 
-    integrations: [react(), clerk({
-    domain: "admin.nous.cr",
-    isSatellite: false,
-    
-})],
+    integrations: [react(), clerk()],
     adapter: vercel()
 });
