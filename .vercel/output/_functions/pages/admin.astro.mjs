@@ -5,15 +5,23 @@ import { jsx, jsxs } from "react/jsx-runtime";
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { renderers } from "../renderers.mjs";
 const $$StatusCards = createComponent(async ($$result, $$props, $$slots) => {
-  const API_URL2 = "https://blog-api-jo8t.onrender.com/api/v1";
+  const API_URL2 = "https://blog-api-fl.fly.dev";
   async function fetchPostStats() {
     try {
       const publishedResponse = await fetch(
         `${API_URL2}/posts?status=PUBLISHED`
       );
+      if (!publishedResponse.ok) {
+        console.error(`Failed to fetch published posts: ${publishedResponse.status}`);
+        return { published: 0, draft: 0 };
+      }
       const publishedData = await publishedResponse.json();
       const publishedCount = publishedData.total || 0;
       const draftResponse = await fetch(`${API_URL2}/posts?status=DRAFT`);
+      if (!draftResponse.ok) {
+        console.error(`Failed to fetch draft posts: ${draftResponse.status}`);
+        return { published: publishedCount, draft: 0 };
+      }
       const draftData = await draftResponse.json();
       const draftCount = draftData.total || 0;
       return {
@@ -147,7 +155,7 @@ function useFilters() {
     removeFilter
   };
 }
-const API_URL = "https://blog-api-jo8t.onrender.com/api/v1";
+const API_URL = "https://blog-api-fl.fly.dev";
 function usePosts(filters) {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -481,7 +489,7 @@ const PostItem = React.memo(({ post }) => {
                 alert("No se pudo obtener el token de autenticación");
                 return;
               }
-              const API_URL2 = "https://blog-api-jo8t.onrender.com/api/v1";
+              const API_URL2 = "https://blog-api-fl.fly.dev";
               const response = await fetch(`${API_URL2}/posts/${post.id}`, {
                 method: "DELETE",
                 headers: {

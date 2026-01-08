@@ -1,5 +1,5 @@
 ---
-const API_URL = import.meta.env.PUBLIC_API_URL || 'https://blog-api-jo8t.onrender.com/api/v1';
+const API_URL = import.meta.env.PUBLIC_API_URL || 'https://blog-api-rrttqa.fly.dev/api/v1';
 
 // Función para obtener estadísticas de posts
 async function fetchPostStats() {
@@ -8,11 +8,19 @@ async function fetchPostStats() {
         const publishedResponse = await fetch(
             `${API_URL}/posts?status=PUBLISHED`,
         );
+        if (!publishedResponse.ok) {
+            console.error(`Failed to fetch published posts: ${publishedResponse.status}`);
+            return { published: 0, draft: 0 };
+        }
         const publishedData = await publishedResponse.json();
         const publishedCount = publishedData.total || 0;
 
         // Obtener posts en borrador
         const draftResponse = await fetch(`${API_URL}/posts?status=DRAFT`);
+        if (!draftResponse.ok) {
+            console.error(`Failed to fetch draft posts: ${draftResponse.status}`);
+            return { published: publishedCount, draft: 0 };
+        }
         const draftData = await draftResponse.json();
         const draftCount = draftData.total || 0;
 
