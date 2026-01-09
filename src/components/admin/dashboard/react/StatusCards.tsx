@@ -20,43 +20,25 @@ export function StatusCards() {
 
     async function fetchStats() {
       try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000);
+        // Hacer las 3 peticiones EN PARALELO para evitar timeout
+        const [publishedResponse, draftResponse, viewsResponse] = await Promise.all([
+          fetch(`${API_URL}/posts?status=PUBLISHED`).catch(err => {
+            console.error('Fetch published error:', err);
+            return null;
+          }),
+          fetch(`${API_URL}/posts?status=DRAFT`).catch(err => {
+            console.error('Fetch draft error:', err);
+            return null;
+          }),
+          fetch(`${API_URL}/posts/stats/views`).catch(err => {
+            console.error('Fetch views error:', err);
+            return null;
+          }),
+        ]);
 
-        // Fetch published posts
-        const publishedResponse = await fetch(
-          `${API_URL}/posts?status=PUBLISHED`,
-          { signal: controller.signal }
-        ).catch(err => {
-          console.error('Fetch published error:', err);
-          return null;
-        });
-        
         const publishedData = publishedResponse?.ok ? await publishedResponse.json() : { total: 0 };
-
-        // Fetch draft posts
-        const draftResponse = await fetch(
-          `${API_URL}/posts?status=DRAFT`,
-          { signal: controller.signal }
-        ).catch(err => {
-          console.error('Fetch draft error:', err);
-          return null;
-        });
-        
         const draftData = draftResponse?.ok ? await draftResponse.json() : { total: 0 };
-
-        // Fetch total views
-        const viewsResponse = await fetch(
-          `${API_URL}/posts/stats/views`,
-          { signal: controller.signal }
-        ).catch(err => {
-          console.error('Fetch views error:', err);
-          return null;
-        });
-        
         const viewsData = viewsResponse?.ok ? await viewsResponse.json() : { totalViews: 0 };
-
-        clearTimeout(timeoutId);
 
         setStats({
           published: publishedData.total || 0,
