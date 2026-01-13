@@ -12,16 +12,6 @@ const clerkAuth = clerkMiddleware((auth, context) => {
     return redirectToSignIn();
   }
 
-  // 2) Si hay sesión, validar permisos (al menos uno)
-  if (isProtected && userId) {
-    const allowed =
-      has({ permission: "org:admin" }) ||
-      has({ permission: "org:member" });
-
-    if (!allowed) {
-      return redirectToSignIn(); // o Response(403)
-    }
-  }
 });
 
 export const onRequest = sequence(clerkAuth);
