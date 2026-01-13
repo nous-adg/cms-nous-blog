@@ -508,35 +508,36 @@ function StatusCards() {
     totalViews: 0
   });
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   useEffect(() => {
     const API_URL2 = "https://blog-api-rrttqa.fly.dev/api/v1";
     async function fetchStats() {
       try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5e3);
-        const publishedResponse = await fetch(
-          `${API_URL2}/posts?status=PUBLISHED`,
-          { signal: controller.signal }
-        );
-        const publishedData = publishedResponse.ok ? await publishedResponse.json() : { total: 0 };
-        const draftResponse = await fetch(
-          `${API_URL2}/posts?status=DRAFT`,
-          { signal: controller.signal }
-        );
-        const draftData = draftResponse.ok ? await draftResponse.json() : { total: 0 };
-        const viewsResponse = await fetch(
-          `${API_URL2}/posts/stats/views`,
-          { signal: controller.signal }
-        );
-        const viewsData = viewsResponse.ok ? await viewsResponse.json() : { totalViews: 0 };
-        clearTimeout(timeoutId);
+        const [publishedResponse, draftResponse, viewsResponse] = await Promise.all([
+          fetch(`${API_URL2}/posts?status=PUBLISHED`).catch((err) => {
+            console.error("Fetch published error:", err);
+            return null;
+          }),
+          fetch(`${API_URL2}/posts?status=DRAFT`).catch((err) => {
+            console.error("Fetch draft error:", err);
+            return null;
+          }),
+          fetch(`${API_URL2}/posts/stats/views`).catch((err) => {
+            console.error("Fetch views error:", err);
+            return null;
+          })
+        ]);
+        const publishedData = publishedResponse?.ok ? await publishedResponse.json() : { total: 0 };
+        const draftData = draftResponse?.ok ? await draftResponse.json() : { total: 0 };
+        const viewsData = viewsResponse?.ok ? await viewsResponse.json() : { totalViews: 0 };
         setStats({
           published: publishedData.total || 0,
           draft: draftData.total || 0,
           totalViews: viewsData.totalViews || 0
         });
-      } catch (error) {
-        console.error("Error fetching stats:", error);
+      } catch (error2) {
+        console.error("Error fetching stats:", error2);
+        setError(error2 instanceof Error ? error2.message : "Unknown error");
       } finally {
         setLoading(false);
       }
