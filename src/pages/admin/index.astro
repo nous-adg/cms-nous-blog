@@ -6,6 +6,6 @@ import BlogDashboard from "@/components/admin/dashboard/BlogDashboard.astro";
 ---
 
 <AdminLayout title="Panel de administracion">
-    <StatusCards client:load />
+    <StatusCards client:only="react" />
     <BlogDashboard />
 </AdminLayout>

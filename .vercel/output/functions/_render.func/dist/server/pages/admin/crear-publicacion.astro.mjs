@@ -1,5 +1,5 @@
 import { e as createComponent, k as renderComponent, r as renderTemplate, m as maybeRenderHead } from "../../chunks/astro/server_B9nb4zjO.mjs";
-import { u as useCategories, $ as $$AdminLayout } from "../../chunks/useCategories_nZSCdxfO.mjs";
+import { $ as $$AdminLayout } from "../../chunks/AdminLayout_CztiM3_d.mjs";
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import { createContext, useState, useMemo, useCallback, useContext, useEffect, useRef } from "react";
 import { X, Upload, Bold, Italic, Underline as Underline$1, AlignLeft, AlignCenter, AlignRight, AlignJustify, ChevronDown, List, ListOrdered, ListTree, Minus, LinkIcon, ImageIcon, VideoIcon, Save, Eye, Trash2 } from "lucide-react";
@@ -175,6 +175,43 @@ const FeaturedImageUpload = () => {
     )
   ] });
 };
+const CATEGORIES = [
+  "ARTICULOS",
+  "TUTORIALES",
+  "EXPERIENCIA_LABORAL",
+  "ANECDOTAS",
+  "PROYECTOS",
+  "DEV_ENJOY",
+  "OPINION",
+  "RECURSOS",
+  "CARRERA_DEV",
+  "IA_DESARROLLO"
+];
+const CATEGORY_LABELS = {
+  "ARTICULOS": "Artículos",
+  "TUTORIALES": "Tutoriales",
+  "EXPERIENCIA_LABORAL": "Experiencia Laboral",
+  "ANECDOTAS": "Anécdotas",
+  "PROYECTOS": "Proyectos",
+  "DEV_ENJOY": "Dev & Enjoy",
+  "OPINION": "Opinión",
+  "RECURSOS": "Recursos",
+  "CARRERA_DEV": "Carrera Dev",
+  "IA_DESARROLLO": "IA y Desarrollo"
+};
+function useCategories() {
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const staticCategories = CATEGORIES.map((cat) => ({
+      value: cat,
+      label: CATEGORY_LABELS[cat]
+    }));
+    setCategories(staticCategories);
+    setLoading(false);
+  }, []);
+  return { categories, loading };
+}
 const ContentData = () => {
   const { postData, updatePostData } = usePost();
   const [currentTag, setCurrentTag] = useState("");

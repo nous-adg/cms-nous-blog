@@ -3,7 +3,6 @@ import { e as createComponent, f as createAstro, k as renderComponent, l as rend
 import { g as generateSafeId, $ as $$InternalUIComponentRenderer } from "./InternalUIComponentRenderer_CVYnP8A9.mjs";
 import "clsx";
 /* empty css                                     */
-import { useState, useEffect } from "react";
 const $$Astro$d = createAstro();
 const $$SignedInCSR = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$d, $$props, $$slots);
@@ -194,49 +193,6 @@ const $$AdminLayout = createComponent(($$result, $$props, $$slots) => {
         `
   }, "style")} data-astro-cid-2kanml4j></div>  ${renderComponent($$result2, "AdminHeader", $$AdminHeader, { "data-astro-cid-2kanml4j": true })} ${renderSlot($$result2, $$slots["default"])} ${renderComponent($$result2, "AdminFooter", $$AdminFooter, { "data-astro-cid-2kanml4j": true })} </div> ` }));
 }, "/Users/alessandro_diaz/Documents/Development/Personal/blog-standalone/src/layouts/AdminLayout.astro", void 0);
-const CATEGORIES = [
-  "ARTICULOS",
-  "TUTORIALES",
-  "EXPERIENCIA_LABORAL",
-  "ANECDOTAS",
-  "PROYECTOS",
-  "DEV_ENJOY",
-  "OPINION",
-  "RECURSOS",
-  "CARRERA_DEV",
-  "IA_DESARROLLO"
-];
-const CATEGORY_LABELS = {
-  "ARTICULOS": "Artículos",
-  "TUTORIALES": "Tutoriales",
-  "EXPERIENCIA_LABORAL": "Experiencia Laboral",
-  "ANECDOTAS": "Anécdotas",
-  "PROYECTOS": "Proyectos",
-  "DEV_ENJOY": "Dev & Enjoy",
-  "OPINION": "Opinión",
-  "RECURSOS": "Recursos",
-  "CARRERA_DEV": "Carrera Dev",
-  "IA_DESARROLLO": "IA y Desarrollo"
-};
-const getCategoryLabel = (value) => {
-  if (!value) return "Sin categoría";
-  return CATEGORY_LABELS[value] || value;
-};
-function useCategories() {
-  const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const staticCategories = CATEGORIES.map((cat) => ({
-      value: cat,
-      label: CATEGORY_LABELS[cat]
-    }));
-    setCategories(staticCategories);
-    setLoading(false);
-  }, []);
-  return { categories, loading };
-}
 export {
-  $$AdminLayout as $,
-  getCategoryLabel as g,
-  useCategories as u
+  $$AdminLayout as $
 };

@@ -6,6 +6,6 @@ import { PostsDashboard } from "./react";
 <section class="container mx-auto max-w-12xl mt-10">
     <div class="glass rounded-xl border border-green-400">
         <DashboardHeader />
-        <PostsDashboard client:load />
+        <PostsDashboard client:only="react" />
     </div>
 </section>
