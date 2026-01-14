@@ -171,39 +171,35 @@ const extractText = (node: any): string => {
 const generateMarkdownWithFrontmatter = (postData: any): string => {
   const markdownBody = formatTiptapToMarkdown(postData.content);
   
-  // Construir frontmatter YAML - todo concatenado sin saltos de línea
+  // Construir frontmatter YAML - formato exacto como el ejemplo que funciona
   let frontmatter = '---';
-  frontmatter += `title: "${escapeYamlString(postData.title)}"`;
+  frontmatter += `title: "${sanitizeString(postData.title)}"`;
   frontmatter += `date: "${new Date().toISOString()}"`;
   frontmatter += `draft: ${postData.status === 'DRAFT'}`;
 
   if (postData.excerpt) {
-    frontmatter += `excerpt: "${escapeYamlString(postData.excerpt)}"`;
+    frontmatter += `excerpt: "${sanitizeString(postData.excerpt)}"`;
   }
 
   if (postData.tags && postData.tags.length > 0) {
-    frontmatter += `tags: [${postData.tags.map((t: string) => `"${escapeYamlString(t)}"`).join(', ')}]`;
+    frontmatter += `tags: [${postData.tags.map((t: string) => `"${sanitizeString(t)}"`).join(', ')}]`;
   }
 
   if (postData.category) {
-    frontmatter += `category: "${escapeYamlString(postData.category)}"`;
+    frontmatter += `category: "${sanitizeString(postData.category)}"`;
   }
 
-  if (postData.featuredImage) {
-    frontmatter += `featured: true`;
-  } else {
-    frontmatter += `featured: false`;
-  }
+  frontmatter += `featured: ${postData.featuredImage ? 'true' : 'false'}`;
 
   frontmatter += '---';
 
   return frontmatter + markdownBody;
 };
 
-// Función para escapar caracteres especiales en strings YAML
-const escapeYamlString = (str: string): string => {
+// Función para sanitizar strings - reemplaza comillas dobles por simples para evitar problemas de escape
+const sanitizeString = (str: string): string => {
   if (!str) return '';
-  return str.replace(/"/g, '\\"').replace(/\n/g, ' ');
+  return str.replace(/"/g, "'").replace(/\n/g, ' ').replace(/\r/g, '');
 };
 
 // Función para formatear el post completo antes de enviarlo al backend
