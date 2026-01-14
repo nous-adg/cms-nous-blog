@@ -33,7 +33,7 @@ const getYoutubeEmbedUrl = (url: string): string => {
   return url;
 };
 
-// Función para convertir el contenido de Tiptap a Markdown
+// Función para convertir el contenido de Tiptap a Markdown (sin saltos de línea)
 export const formatTiptapToMarkdown = (tiptapJson: any): string => {
   if (!tiptapJson || !tiptapJson.content) {
     return '';
@@ -45,47 +45,47 @@ export const formatTiptapToMarkdown = (tiptapJson: any): string => {
     switch (node.type) {
       case 'paragraph':
         const paragraphText = extractTextWithMarks(node);
-        return paragraphText.trim() ? paragraphText + '\n' : '';
+        return paragraphText.trim() || '';
 
       case 'heading':
         const headingText = extractTextWithMarks(node);
         const level = node.attrs?.level || 1;
         const hashes = '#'.repeat(level);
-        return `${hashes} ${headingText}\n`;
+        return `${hashes} ${headingText}`;
 
       case 'codeBlock':
         const codeText = extractText(node);
         const language = node.attrs?.language || '';
-        return `\`\`\`${language}\n${codeText}\n\`\`\`\n`;
+        return `\`\`\`${language} ${codeText} \`\`\``;
 
       case 'bulletList':
         const bulletItems = extractListItemsWithMarks(node);
-        return bulletItems.map(item => `- ${item}`).join('\n') + '\n';
+        return bulletItems.map(item => `- ${item}`).join('');
 
       case 'orderedList':
         const orderedItems = extractListItemsWithMarks(node);
-        return orderedItems.map((item, i) => `${i + 1}. ${item}`).join('\n') + '\n';
+        return orderedItems.map((item, i) => `${i + 1}. ${item}`).join('');
 
       case 'blockquote':
         const quoteText = extractTextWithMarks(node);
-        return `> ${quoteText}\n`;
+        return `> ${quoteText}`;
 
       case 'image':
         const src = node.attrs?.src || '';
         const alt = node.attrs?.alt || '';
         const title = node.attrs?.title ? ` "${node.attrs.title}"` : '';
-        return `![${alt}](${src}${title})\n`;
+        return `![${alt}](${src}${title})`;
 
       case 'horizontalRule':
-        return '---\n';
+        return '---';
 
       case 'youtube':
         const videoSrc = getYoutubeEmbedUrl(node.attrs?.src || '');
-        return `<iframe src="${videoSrc}" width="${node.attrs?.width || 560}" height="${node.attrs?.height || 315}" frameborder="0" allowfullscreen></iframe>\n`;
+        return `<iframe src="${videoSrc}" width="${node.attrs?.width || 560}" height="${node.attrs?.height || 315}" frameborder="0" allowfullscreen></iframe>`;
 
       default:
         const text = extractTextWithMarks(node);
-        return text.trim() ? text + '\n' : '';
+        return text.trim() || '';
     }
   };
 
@@ -96,7 +96,7 @@ export const formatTiptapToMarkdown = (tiptapJson: any): string => {
     }
   });
 
-  return markdownParts.join('\n');
+  return markdownParts.join('');
 };
 
 // Función para extraer texto con marcas (bold, italic, code, links)
@@ -167,40 +167,37 @@ const extractText = (node: any): string => {
   return '';
 };
 
-// Función para generar el contenido Markdown con frontmatter YAML
+// Función para generar el contenido Markdown con frontmatter YAML (todo en una línea)
 const generateMarkdownWithFrontmatter = (postData: any): string => {
   const markdownBody = formatTiptapToMarkdown(postData.content);
   
-  // Construir frontmatter YAML
-  const frontmatterLines: string[] = [
-    '---',
-    `title: "${escapeYamlString(postData.title)}"`,
-    `date: "${new Date().toISOString()}"`,
-    `draft: ${postData.status === 'DRAFT'}`,
-  ];
+  // Construir frontmatter YAML - todo concatenado sin saltos de línea
+  let frontmatter = '---';
+  frontmatter += `title: "${escapeYamlString(postData.title)}"`;
+  frontmatter += `date: "${new Date().toISOString()}"`;
+  frontmatter += `draft: ${postData.status === 'DRAFT'}`;
 
   if (postData.excerpt) {
-    frontmatterLines.push(`excerpt: "${escapeYamlString(postData.excerpt)}"`);
+    frontmatter += `excerpt: "${escapeYamlString(postData.excerpt)}"`;
   }
 
   if (postData.tags && postData.tags.length > 0) {
-    frontmatterLines.push(`tags: [${postData.tags.map((t: string) => `"${escapeYamlString(t)}"`).join(', ')}]`);
+    frontmatter += `tags: [${postData.tags.map((t: string) => `"${escapeYamlString(t)}"`).join(', ')}]`;
   }
 
   if (postData.category) {
-    frontmatterLines.push(`category: "${escapeYamlString(postData.category)}"`);
+    frontmatter += `category: "${escapeYamlString(postData.category)}"`;
   }
 
   if (postData.featuredImage) {
-    frontmatterLines.push(`featured: true`);
+    frontmatter += `featured: true`;
   } else {
-    frontmatterLines.push(`featured: false`);
+    frontmatter += `featured: false`;
   }
 
-  frontmatterLines.push('---');
-  frontmatterLines.push('');
+  frontmatter += '---';
 
-  return frontmatterLines.join('\n') + markdownBody;
+  return frontmatter + markdownBody;
 };
 
 // Función para escapar caracteres especiales en strings YAML
