@@ -168,13 +168,59 @@ const extractListItems = (listNode: any): string[] => {
   }).filter((item: string) => item.length > 0);
 };
 
+// Función para convertir bloques a formato HTML
+export const convertBlocksToHTML = (blocks: any[]) => {
+  return blocks.map(block => {
+    switch (block.type) {
+      case 'heading':
+        const level = block.level || 1;
+        return `<h${level}>${block.content}</h${level}>`;
+      
+      case 'paragraph':
+        return `<p>${block.content}</p>`;
+      
+      case 'code':
+        return `<pre><code class="language-${block.language || 'javascript'}">${block.content}</code></pre>`;
+      
+      case 'bulletList':
+        const bulletItems = block.items.map((item: string) => `<li>${item}</li>`).join('');
+        return `<ul>${bulletItems}</ul>`;
+      
+      case 'orderedList':
+        const orderedItems = block.items.map((item: string) => `<li>${item}</li>`).join('');
+        return `<ol>${orderedItems}</ol>`;
+      
+      case 'blockquote':
+        return `<blockquote>${block.content}</blockquote>`;
+      
+      case 'image':
+        return `<img src="${block.src}" alt="${block.alt}" title="${block.title}" />`;
+      
+      case 'divider':
+        return `<hr>`;
+      
+      case 'youtube':
+        return `<div class="video-embed"><iframe src="${block.src}" width="${block.width || 640}" height="${block.height || 360}" frameborder="0" allowfullscreen></iframe></div>`;
+      
+      default:
+        return `<p>${block.content || ''}</p>`;
+    }
+  }).join('\n');
+};
+
 // Función para formatear el post completo antes de enviarlo al backend
 export const formatPostForBackend = (postData: any) => {
+  // Convertir el contenido de TipTap a bloques
+  const blocksContent = formatTiptapContent(postData.content);
+  
+  // Convertir los bloques a HTML para guardar en la BD
+  const htmlContent = convertBlocksToHTML(blocksContent.blocks);
+  
   const formatted: any = {
     title: postData.title,
     slug: postData.slug,
     excerpt: postData.excerpt,
-    content: formatTiptapContent(postData.content),
+    content: htmlContent, // Guardar como HTML en lugar de bloques
     categorie: postData.category,
     tags: postData.tags,
     status: postData.status || 'DRAFT',
